@@ -1,0 +1,262 @@
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+
+<HelpScreen>:
+    name: "help"
+    md_bg_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#E0E0E0") or get_color_from_hex("#0A0E17")
+
+    MDBoxLayout:
+        orientation: "vertical"
+
+        # AppBar
+        MDBoxLayout:
+            orientation: "horizontal"
+            size_hint_y: None
+            height: "56dp"
+            padding: ["8dp", "0dp", "8dp", "0dp"]
+            md_bg_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#455A64") or get_color_from_hex("#1A2130")
+
+            # Back button
+            MDIconButton:
+                icon: "arrow-left"
+                theme_text_color: "Custom"
+                text_color: get_color_from_hex("#ffffff")
+                pos_hint: {"center_y": .5}
+                on_release: app.screen_manager.current = "main"
+
+            # Title
+            MDLabel:
+                text: "Help"
+                theme_text_color: "Custom"
+                text_color: get_color_from_hex("#ffffff")
+                font_style: "H6"
+                bold: True
+                pos_hint: {"center_y": .5}
+
+        # Content
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+
+            MDBoxLayout:
+                orientation: "vertical"
+                padding: "16dp"
+                spacing: "20dp"
+                adaptive_height: True
+
+                # Help Title
+                MDLabel:
+                    text: "How to Use DataCrypt"
+                    font_style: "H5"
+                    theme_text_color: "Custom"
+                    text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#000000") or get_color_from_hex("#00E676")
+                    halign: "center"
+                    bold: True
+                    size_hint_y: None
+                    height: "48dp"
+
+                # Encryption Section
+                MDCard:
+                    orientation: "vertical"
+                    padding: "16dp"
+                    spacing: "8dp"
+                    md_bg_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#FFFFFF") or get_color_from_hex("#162029")
+                    radius: [4,]
+                    elevation: 1
+                    size_hint_y: None
+                    height: encrypt_content.height + dp(80)
+
+                    # Section Header
+                    MDBoxLayout:
+                        orientation: "horizontal"
+                        adaptive_height: True
+                        spacing: "12dp"
+                        size_hint_y: None
+                        height: "48dp"
+
+                        MDIcon:
+                            icon: "lock"
+                            theme_text_color: "Custom"
+                            text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#000000") or get_color_from_hex("#00E676")
+                            size_hint: None, None
+                            size: "24dp", "24dp"
+                            pos_hint: {"center_y": .5}
+
+                        MDLabel:
+                            text: "Encrypting Files"
+                            font_style: "H6"
+                            theme_text_color: "Custom"
+                            text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#000000") or get_color_from_hex("#00E676")
+                            bold: True
+
+                    MDLabel:
+                        id: encrypt_content
+                        text: "1. Enter an encryption key or click 'Generate' to create a secure key\n2. Click 'Browse Files' to select the file you want to encrypt\n3. Click 'ENCRYPT FILE' to encrypt your file\n4. Your encrypted file will be saved in the same location with no file extension\n\nIMPORTANT: Remember your encryption key! Without it, you won't be able to decrypt your files."
+                        theme_text_color: "Custom"
+                        text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#212121") or get_color_from_hex("#E0E0E0")
+                        adaptive_height: True
+
+                # Decryption Section
+                MDCard:
+                    orientation: "vertical"
+                    padding: "16dp"
+                    spacing: "8dp"
+                    md_bg_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#FFFFFF") or get_color_from_hex("#162029")
+                    radius: [4,]
+                    elevation: 1
+                    size_hint_y: None
+                    height: decrypt_content.height + dp(80)
+
+                    # Section Header
+                    MDBoxLayout:
+                        orientation: "horizontal"
+                        adaptive_height: True
+                        spacing: "12dp"
+                        size_hint_y: None
+                        height: "48dp"
+
+                        MDIcon:
+                            icon: "lock-open"
+                            theme_text_color: "Custom"
+                            text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#000000") or get_color_from_hex("#00BCD4")
+                            size_hint: None, None
+                            size: "24dp", "24dp"
+                            pos_hint: {"center_y": .5}
+
+                        MDLabel:
+                            text: "Decrypting Files"
+                            font_style: "H6"
+                            theme_text_color: "Custom"
+                            text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#000000") or get_color_from_hex("#00BCD4")
+                            bold: True
+
+                    MDLabel:
+                        id: decrypt_content
+                        text: "1. Enter the same encryption key that was used to encrypt the file\n2. Click 'Encrypted Files' to browse and select your encrypted file\n3. Click 'DECRYPT FILE' to decrypt your file\n4. Your decrypted file will be saved in the same location with its original extension"
+                        theme_text_color: "Custom"
+                        text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#212121") or get_color_from_hex("#E0E0E0")
+                        adaptive_height: True
+
+                # Key Management
+                MDCard:
+                    orientation: "vertical"
+                    padding: "16dp"
+                    spacing: "8dp"
+                    md_bg_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#FFFFFF") or get_color_from_hex("#162029")
+                    radius: [4,]
+                    elevation: 1
+                    size_hint_y: None
+                    height: key_content.height + dp(80)
+
+                    # Section Header
+                    MDBoxLayout:
+                        orientation: "horizontal"
+                        adaptive_height: True
+                        spacing: "12dp"
+                        size_hint_y: None
+                        height: "48dp"
+
+                        MDIcon:
+                            icon: "key-variant"
+                            theme_text_color: "Custom"
+                            text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#000000") or get_color_from_hex("#FFAB00")
+                            size_hint: None, None
+                            size: "24dp", "24dp"
+                            pos_hint: {"center_y": .5}
+
+                        MDLabel:
+                            text: "Key Management"
+                            font_style: "H6"
+                            theme_text_color: "Custom"
+                            text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#000000") or get_color_from_hex("#FFAB00")
+                            bold: True
+
+                    MDLabel:
+                        id: key_content
+                        text: "• Always store your encryption keys in a secure location\n• Use different keys for different types of files for enhanced security\n• The 'Generate' button creates a strong, random encryption key\n• You can use your own key, but make sure it's complex enough to be secure\n• Never share your encryption keys with untrusted parties"
+                        theme_text_color: "Custom"
+                        text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#212121") or get_color_from_hex("#E0E0E0")
+                        adaptive_height: True
+
+                # Security Tips
+                MDCard:
+                    orientation: "vertical"
+                    padding: "16dp"
+                    spacing: "8dp"
+                    md_bg_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#FFFFFF") or get_color_from_hex("#162029")
+                    radius: [4,]
+                    elevation: 1
+                    size_hint_y: None
+                    height: tips_content.height + dp(80)
+
+                    # Section Header
+                    MDBoxLayout:
+                        orientation: "horizontal"
+                        adaptive_height: True
+                        spacing: "12dp"
+                        size_hint_y: None
+                        height: "48dp"
+
+                        MDIcon:
+                            icon: "shield-key"
+                            theme_text_color: "Custom"
+                            text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#000000") or get_color_from_hex("#FF5252")
+                            size_hint: None, None
+                            size: "24dp", "24dp"
+                            pos_hint: {"center_y": .5}
+
+                        MDLabel:
+                            text: "Security Tips"
+                            font_style: "H6"
+                            theme_text_color: "Custom"
+                            text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#000000") or get_color_from_hex("#FF5252")
+                            bold: True
+
+                    MDLabel:
+                        id: tips_content
+                        text: "• DataCrypt uses AES-256 encryption, which is military-grade security\n• Keep your device secure with up-to-date antivirus software\n• Consider using a password manager to store your encryption keys\n• Always keep backups of your original files in a secure location\n• If you suspect your key has been compromised, re-encrypt your files with a new key"
+                        theme_text_color: "Custom"
+                        text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#212121") or get_color_from_hex("#E0E0E0")
+                        adaptive_height: True
+
+                # Support
+                MDCard:
+                    orientation: "vertical"
+                    padding: "16dp"
+                    spacing: "8dp"
+                    md_bg_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#FFFFFF") or get_color_from_hex("#162029")
+                    radius: [4,]
+                    elevation: 1
+                    size_hint_y: None
+                    height: "110dp"  # Adjusted height
+
+                    MDLabel:
+                        text: "Need More Help?"
+                        font_style: "H6"
+                        theme_text_color: "Custom"
+                        text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#000000") or get_color_from_hex("#00E676")
+                        bold: True
+                        size_hint_y: None
+                        height: "30dp"  # Reduced height
+
+                    MDBoxLayout:
+                        orientation: "vertical"
+                        adaptive_height: True
+                        spacing: "2dp"
+                        padding: [0, "2dp", 0, "2dp"]
+
+                        MDLabel:
+                            text: "Contact us at:"
+                            theme_text_color: "Custom"
+                            text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#424242") or get_color_from_hex("#9E9E9E")
+                            font_style: "Body1"
+                            bold: True
+                            size_hint_y: None
+                            height: "24dp"  # Reduced height
+
+                        MDLabel:
+                            text: "[ref=mailto:piyushgosavi90@gmail.com]piyushgosavi90@gmail.com[/ref]"
+                            theme_text_color: "Custom"
+                            text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#2196F3") or get_color_from_hex("#64B5F6")
+                            font_style: "Body1"
+                            markup: True
+                            on_ref_press: import webbrowser; webbrowser.open("mailto:piyushgosavi90@gmail.com")

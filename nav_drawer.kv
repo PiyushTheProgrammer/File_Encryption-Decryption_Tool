@@ -1,0 +1,201 @@
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+
+<ContentNavigationDrawer>:
+    orientation: "vertical"
+    padding: 0
+    spacing: 0
+
+    # Header with profile
+    MDBoxLayout:
+        orientation: "vertical"
+        size_hint_y: None
+        height: "200dp"
+        padding: 0
+        md_bg_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#455A64") or get_color_from_hex("#1A2130")  # Cybersecurity/hacking header
+
+        # Background gradient effect
+        FloatLayout:
+            size_hint_y: None
+            height: "200dp"
+
+            # Top gradient
+            MDBoxLayout:
+                orientation: "vertical"
+                size_hint_y: 0.4
+                pos_hint: {"top": 1}
+                md_bg_color: get_color_from_hex("#616161")  # Lighter gray
+                opacity: 0.7
+
+            # Bottom gradient
+            MDBoxLayout:
+                orientation: "vertical"
+                size_hint_y: 0.3
+                pos_hint: {"y": 0}
+                md_bg_color: get_color_from_hex("#212121")  # Darker gray
+                opacity: 0.5
+
+        # User profile section
+        MDBoxLayout:
+            orientation: "vertical"
+            adaptive_height: True
+            spacing: "16dp"
+            padding: ["16dp", "16dp", "16dp", "16dp"]
+            pos_hint: {"center_y": 0.5}
+
+            # Profile image - square with rounded corners
+            MDCard:
+                size_hint: None, None
+                size: "80dp", "80dp"
+                radius: [16,]  # Square with rounded corners
+                elevation: 4
+                pos_hint: {"center_x": 0.5}
+                md_bg_color: 1, 1, 1, 1
+
+                FitImage:
+                    source: "assets/logo.png"
+                    radius: [16,]
+
+            # App info with more spacing
+            MDBoxLayout:
+                orientation: "vertical"
+                adaptive_height: True
+                spacing: "12dp"  # Increased spacing
+                padding: [0, "8dp", 0, 0]  # Added top padding
+
+                # App name
+                MDLabel:
+                    text: "DataCrypt"
+                    font_style: "H5"
+                    theme_text_color: "Custom"
+                    text_color: get_color_from_hex("#ffffff")
+                    halign: "center"
+                    bold: True
+                    size_hint_y: None
+                    height: "36dp"  # Fixed height
+                    shorten: False
+                    markup: False
+                    max_lines: 1
+
+                # Tagline
+                MDLabel:
+                    text: "Secure File Encryption"
+                    theme_text_color: "Custom"
+                    text_color: get_color_from_hex("#e1f5fe")
+                    halign: "center"
+                    font_style: "Body2"
+                    size_hint_y: None
+                    height: "24dp"  # Fixed height
+
+    # Navigation items
+    ScrollView:
+        MDList:
+            id: nav_items
+            padding: ["8dp", "16dp", "8dp", "16dp"]
+            spacing: "8dp"
+
+            # Home
+            OneLineAvatarIconListItem:
+                text: "Home"
+                theme_text_color: "Custom"
+                text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#000000") or get_color_from_hex("#ffffff")
+
+                on_release:
+                    app.screen.ids.nav_drawer.set_state("close")
+                    app.show_snackbar("Home screen")
+
+                IconLeftWidget:
+                    icon: "home"
+                    theme_text_color: "Custom"
+                    text_color: get_color_from_hex("#2196f3")
+
+            # Profile
+            OneLineAvatarIconListItem:
+                text: "Profile"
+                theme_text_color: "Custom"
+                text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#000000") or get_color_from_hex("#ffffff")
+
+                on_release:
+                    app.screen.ids.nav_drawer.set_state("close")
+                    app.show_snackbar("Profile feature coming soon!")
+
+                IconLeftWidget:
+                    icon: "account"
+                    theme_text_color: "Custom"
+                    text_color: get_color_from_hex("#9c27b0")
+
+            # Settings
+            OneLineAvatarIconListItem:
+                text: "Settings"
+                theme_text_color: "Custom"
+                text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#000000") or get_color_from_hex("#ffffff")
+
+                on_release:
+                    app.screen.ids.nav_drawer.set_state("close")
+                    app.show_snackbar("Settings feature coming soon!")
+
+                IconLeftWidget:
+                    icon: "cog"
+                    theme_text_color: "Custom"
+                    text_color: get_color_from_hex("#ff9800")
+
+            # Help
+            OneLineAvatarIconListItem:
+                text: "Help"
+                theme_text_color: "Custom"
+                text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#000000") or get_color_from_hex("#ffffff")
+
+                on_release:
+                    app.screen.ids.nav_drawer.set_state("close")
+                    app.screen_manager.current = "help"
+
+                IconLeftWidget:
+                    icon: "help-circle"
+                    theme_text_color: "Custom"
+                    text_color: get_color_from_hex("#4caf50")
+
+            # About
+            OneLineAvatarIconListItem:
+                text: "About Us"
+                theme_text_color: "Custom"
+                text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#000000") or get_color_from_hex("#ffffff")
+
+                on_release:
+                    app.screen.ids.nav_drawer.set_state("close")
+                    app.screen_manager.current = "about_us"
+
+                IconLeftWidget:
+                    icon: "information"
+                    theme_text_color: "Custom"
+                    text_color: get_color_from_hex("#f44336")
+
+            # No manual separator - using automatic dividers between all items
+
+            # Theme toggle with dynamic icon and text
+            OneLineAvatarIconListItem:
+                text: "Switch to " + ("Light Mode" if app.theme_cls.theme_style == "Dark" else "Dark Mode")
+                theme_text_color: "Custom"
+                text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#000000") or get_color_from_hex("#ffffff")
+
+                on_release:
+                    app.toggle_theme()
+                    app.screen.ids.nav_drawer.set_state("close")
+
+                IconLeftWidget:
+                    icon: "white-balance-sunny" if app.theme_cls.theme_style == "Dark" else "moon-waning-crescent"
+                    theme_text_color: "Custom"
+                    text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#FFA000") or get_color_from_hex("#FFAB00")
+
+    # Footer
+    MDBoxLayout:
+        orientation: "vertical"
+        size_hint_y: None
+        height: "48dp"
+        padding: ["16dp", "8dp", "16dp", "8dp"]
+        md_bg_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#f5f5f5") or get_color_from_hex("#212121")
+
+        MDLabel:
+            text: "DataCrypt v1.0"
+            theme_text_color: "Custom"
+            text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#757575") or get_color_from_hex("#9e9e9e")
+            font_style: "Caption"
+            halign: "center"

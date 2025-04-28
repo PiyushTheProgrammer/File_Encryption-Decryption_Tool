@@ -1,0 +1,229 @@
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+
+<AboutUsScreen>:
+    name: "about_us"
+    md_bg_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#E0E0E0") or get_color_from_hex("#0A0E17")
+
+    MDBoxLayout:
+        orientation: "vertical"
+
+        # AppBar
+        MDBoxLayout:
+            orientation: "horizontal"
+            size_hint_y: None
+            height: "56dp"
+            padding: ["8dp", "0dp", "8dp", "0dp"]
+            md_bg_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#455A64") or get_color_from_hex("#1A2130")
+
+            # Back button
+            MDIconButton:
+                icon: "arrow-left"
+                theme_text_color: "Custom"
+                text_color: get_color_from_hex("#ffffff")
+                pos_hint: {"center_y": .5}
+                on_release: app.screen_manager.current = "main"
+
+            # Title
+            MDLabel:
+                text: "About Us"
+                theme_text_color: "Custom"
+                text_color: get_color_from_hex("#ffffff")
+                font_style: "H6"
+                bold: True
+                pos_hint: {"center_y": .5}
+
+        # Content
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+
+            MDBoxLayout:
+                orientation: "vertical"
+                padding: "16dp"
+                spacing: "20dp"
+                adaptive_height: True
+
+                # App Logo and Name
+                MDBoxLayout:
+                    orientation: "vertical"
+                    adaptive_height: True
+                    spacing: "20dp"
+                    padding: ["0dp", "20dp", "0dp", "20dp"]
+                    pos_hint: {"center_x": .5}
+
+                    # Logo - Perfectly circular
+                    MDRelativeLayout:
+                        size_hint: None, None
+                        size: "120dp", "120dp"
+                        pos_hint: {"center_x": .5}
+
+                        # Circular background
+                        MDCard:
+                            size_hint: 1, 1
+                            radius: [60, 60, 60, 60]  # Perfect circle
+                            elevation: 1
+                            padding: 0
+                            md_bg_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#455A64") or get_color_from_hex("#1A2327")
+                            pos_hint: {"center_x": .5, "center_y": .5}
+
+                        # Circular mask for the image
+                        MDBoxLayout:
+                            size_hint: 1, 1
+                            pos_hint: {"center_x": .5, "center_y": .5}
+
+                            # This will create a circular crop effect
+                            MDCard:
+                                size_hint: 1, 1
+                                radius: [60, 60, 60, 60]  # Perfect circle
+                                elevation: 0
+                                padding: 0
+                                md_bg_color: [0, 0, 0, 0]  # Transparent
+
+                                # The image itself
+                                FitImage:
+                                    source: "assets/logo.png"
+                                    radius: [60, 60, 60, 60]  # Perfect circle
+                                    size_hint: 1, 1
+
+                    # App Name
+                    MDLabel:
+                        text: "DataCrypt"
+                        font_style: "H4"
+                        theme_text_color: "Custom"
+                        text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#000000") or get_color_from_hex("#00E676")
+                        halign: "center"
+                        bold: True
+                        size_hint_y: None
+                        height: "60dp"  # Added extra height for spacing
+
+                    # Tagline
+                    MDLabel:
+                        text: "Lock Your Files, Unlock Your Piece of Mind"
+                        font_style: "H6"
+                        theme_text_color: "Custom"
+                        text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#455A64") or get_color_from_hex("#64FFDA")
+                        halign: "center"
+                        italic: True
+
+                    # Version
+                    MDLabel:
+                        text: "Version 1.0.1"
+                        font_style: "Body1"
+                        theme_text_color: "Custom"
+                        text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#616161") or get_color_from_hex("#9E9E9E")
+                        halign: "center"
+
+                # About Section
+                MDCard:
+                    orientation: "vertical"
+                    padding: "16dp"
+                    spacing: "8dp"
+                    md_bg_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#FFFFFF") or get_color_from_hex("#162029")
+                    radius: [4,]
+                    elevation: 1
+                    size_hint_y: None
+                    height: about_content.height + dp(48)  # Increased padding
+
+                    MDLabel:
+                        id: about_content
+                        text: "DataCrypt is a powerful file encryption application designed to protect your sensitive data with military-grade AES-256 encryption. Our mission is to provide a simple yet effective solution for securing your files against unauthorized access, theft, and hacking attempts.\n\nWith DataCrypt, you can easily encrypt and decrypt your files with just a few clicks, ensuring that your private information remains private."
+                        theme_text_color: "Custom"
+                        text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#212121") or get_color_from_hex("#E0E0E0")
+                        adaptive_height: True
+
+                # Developer Info
+                MDCard:
+                    orientation: "vertical"
+                    padding: "16dp"
+                    spacing: "8dp"
+                    md_bg_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#FFFFFF") or get_color_from_hex("#162029")
+                    radius: [4,]
+                    elevation: 1
+                    size_hint_y: None
+                    height: "180dp"  # Increased height to accommodate content
+
+                    MDLabel:
+                        text: "Developer"
+                        font_style: "H6"
+                        theme_text_color: "Custom"
+                        text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#000000") or get_color_from_hex("#00E676")
+                        bold: True
+                        size_hint_y: None
+                        height: "40dp"  # Fixed height
+
+                    MDLabel:
+                        text: "Piyush Gosavi"
+                        theme_text_color: "Custom"
+                        text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#212121") or get_color_from_hex("#FFFFFF")
+                        font_style: "Body1"
+                        bold: True
+
+                    MDBoxLayout:
+                        orientation: "horizontal"
+                        adaptive_height: True
+                        spacing: "8dp"
+                        padding: [0, "8dp", 0, "8dp"]
+
+                        MDLabel:
+                            text: "Email:"
+                            theme_text_color: "Custom"
+                            text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#424242") or get_color_from_hex("#9E9E9E")
+                            font_style: "Body2"
+                            bold: True
+                            size_hint_x: None
+                            width: "50dp"
+
+                        MDLabel:
+                            text: "[ref=mailto:piyushgosavi90@gmail.com]piyushgosavi90@gmail.com[/ref]"
+                            theme_text_color: "Custom"
+                            text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#2196F3") or get_color_from_hex("#64B5F6")
+                            font_style: "Body2"
+                            markup: True
+                            on_ref_press: import webbrowser; webbrowser.open("mailto:piyushgosavi90@gmail.com")
+
+                    MDBoxLayout:
+                        orientation: "horizontal"
+                        adaptive_height: True
+                        spacing: "8dp"
+                        padding: [0, "8dp", 0, "8dp"]
+
+                        MDLabel:
+                            text: "Website:"
+                            theme_text_color: "Custom"
+                            text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#424242") or get_color_from_hex("#9E9E9E")
+                            font_style: "Body2"
+                            bold: True
+                            size_hint_x: None
+                            width: "65dp"
+
+                        MDLabel:
+                            text: "[ref=https://piyushtheprogrammer.github.io/My_Portfolio_PRG/]My Portfolio[/ref]"
+                            theme_text_color: "Custom"
+                            text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#2196F3") or get_color_from_hex("#64B5F6")
+                            font_style: "Body2"
+                            markup: True
+                            on_ref_press: import webbrowser; webbrowser.open("https://piyushtheprogrammer.github.io/My_Portfolio_PRG/")
+
+                # Copyright
+                MDCard:
+                    orientation: "vertical"
+                    padding: "16dp"
+                    spacing: "8dp"
+                    md_bg_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#FFFFFF") or get_color_from_hex("#162029")
+                    radius: [4,]
+                    elevation: 1
+                    size_hint_y: None
+                    height: "100dp"  # Increased height
+
+                    MDLabel:
+                        text: "Copyright © 2023 DataCrypt"
+                        theme_text_color: "Custom"
+                        text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#212121") or get_color_from_hex("#FFFFFF")
+                        font_style: "Body1"
+                        bold: True
+
+                    MDLabel:
+                        text: "All rights reserved. Unauthorized reproduction or distribution of this application is prohibited."
+                        theme_text_color: "Custom"
+                        text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#616161") or get_color_from_hex("#9E9E9E")
+                        font_style: "Caption"

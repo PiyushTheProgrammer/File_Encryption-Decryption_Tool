@@ -1,0 +1,116 @@
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+
+<SplashScreen>:
+    name: "splash"
+    md_bg_color: get_color_from_hex("#2A2A2A")  # Dark gray matching terminal
+
+    FloatLayout:
+        # Clean background without overlay
+
+        # No accent lines - clean design
+
+        # Logo - directly placed without card container
+        Image:
+            source: "assets/logo.png"
+            size_hint: None, None
+            size: "180dp", "180dp"
+            pos_hint: {"center_x": 0.5, "center_y": 0.65}
+            # No background or container - logo appears to float on the background
+
+        # App name and taglines in a hacker-styled container
+        MDCard:
+            orientation: "vertical"
+            size_hint_y: None
+            height: "180dp"
+            size_hint_x: 0.9
+            pos_hint: {"center_x": 0.5, "center_y": 0.35}
+            spacing: "8dp"
+            padding: "16dp"
+            md_bg_color: get_color_from_hex("#2A2A2A")  # Dark gray for terminal
+            radius: [4, 4, 4, 4]  # More angular for hacker aesthetic
+            elevation: 2
+
+            # Terminal-like header
+            MDBoxLayout:
+                orientation: "horizontal"
+                size_hint_y: None
+                height: "24dp"
+                spacing: "8dp"
+
+                # Terminal-like dots
+                MDBoxLayout:
+                    size_hint: None, None
+                    size: "12dp", "12dp"
+                    md_bg_color: get_color_from_hex("#FF5252")  # Red dot
+                    radius: [6, 6, 6, 6]
+
+                MDBoxLayout:
+                    size_hint: None, None
+                    size: "12dp", "12dp"
+                    md_bg_color: get_color_from_hex("#FFAB00")  # Amber dot
+                    radius: [6, 6, 6, 6]
+
+                MDBoxLayout:
+                    size_hint: None, None
+                    size: "12dp", "12dp"
+                    md_bg_color: get_color_from_hex("#00E676")  # Green dot
+                    radius: [6, 6, 6, 6]
+
+                MDLabel:
+                    text: "SECURE TERMINAL"
+                    font_style: "Caption"
+                    theme_text_color: "Custom"
+                    text_color: get_color_from_hex("#9E9E9E") if app.theme_cls.theme_style == "Dark" else get_color_from_hex("#546E7A")
+                    halign: "center"
+
+            # App name with hacker styling
+            MDLabel:
+                text: "[color=#FFA000]>[/color] [b]DataCrypt[/b] [color=#FFA000]v1.0[/color]"
+                font_style: "H5"
+                theme_text_color: "Custom"
+                text_color: get_color_from_hex("#FFFFFF")
+                halign: "left"
+                markup: True
+                size_hint_y: None
+                height: "40dp"
+
+            # Primary Tagline with hacker styling
+            MDLabel:
+                text: "[color=#FFA000]$[/color] Lock Your Files. Unlock Your Peace of Mind."
+                font_style: "Subtitle1"
+                theme_text_color: "Custom"
+                text_color: get_color_from_hex("#FFA000")
+                halign: "left"
+                markup: True
+                size_hint_y: None
+                height: "30dp"
+
+            # Secondary Tagline with hacker styling
+            MDLabel:
+                text: "[color=#FFA000]$[/color] Military-grade AES-256 encryption"
+                font_style: "Body1"
+                theme_text_color: "Custom"
+                text_color: get_color_from_hex("#CCCCCC")
+                halign: "left"
+                markup: True
+                size_hint_y: None
+                height: "30dp"
+
+            # Blinking cursor effect
+            MDLabel:
+                text: "[color=#FFA000]$[/color] [color=#FFFFFF]_[/color]"
+                font_style: "Body1"
+                theme_text_color: "Custom"
+                text_color: get_color_from_hex("#CCCCCC")
+                halign: "left"
+                markup: True
+                size_hint_y: None
+                height: "20dp"
+
+        # Loading spinner with hacker styling
+        MDSpinner:
+            size_hint: None, None
+            size: "40dp", "40dp"
+            pos_hint: {"center_x": 0.5, "center_y": 0.15}
+            active: True
+            color: get_color_from_hex("#FFFFFF")  # White spinner for clean look

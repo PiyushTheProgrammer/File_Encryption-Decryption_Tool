@@ -1,0 +1,294 @@
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+#:import colors kivymd.color_definitions.colors
+
+<TooltipIconButton@MDIconButton+MDTooltip>:
+    tooltip_bg_color: app.theme_cls.primary_color
+    tooltip_text_color: get_color_from_hex(colors["Light"]["CardsDialogs"])
+
+MDNavigationLayout:
+
+    ScreenManager:
+        id: screen_manager
+
+        MDScreen:
+            name: "home"
+            md_bg_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#E0E0E0") or get_color_from_hex("#0A0E17")  # Cybersecurity/hacking background
+
+            MDBoxLayout:
+                orientation: "vertical"
+
+                # Simplified AppBar - completely redesigned
+                MDBoxLayout:
+                    orientation: "horizontal"
+                    size_hint_y: None
+                    height: "56dp"  # Standard height
+                    padding: ["8dp", "0dp", "8dp", "0dp"]
+                    md_bg_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#455A64") or get_color_from_hex("#1A2130")  # Cybersecurity/hacking header
+
+                    # Menu button
+                    MDIconButton:
+                        icon: "menu"
+                        theme_text_color: "Custom"
+                        text_color: get_color_from_hex("#ffffff")
+                        pos_hint: {"center_y": .5}
+                        on_release: root.ids.nav_drawer.set_state("open")
+
+                    # App title with logo - simplified
+                    MDBoxLayout:
+                        orientation: "horizontal"
+                        size_hint_x: 1  # Take all available space
+                        pos_hint: {"center_y": .5}
+                        spacing: "12dp"
+                        padding: ["4dp", "0dp", "0dp", "0dp"]
+
+                        # Logo
+                        Image:
+                            source: "assets/logo.png"
+                            size_hint: None, None
+                            size: "36dp", "36dp"
+                            pos_hint: {"center_y": .5}
+
+                        # App name - single text label with fixed properties
+                        MDLabel:
+                            text: "DataCrypt"
+                            theme_text_color: "Custom"
+                            text_color: get_color_from_hex("#ffffff")
+                            bold: True
+                            font_size: "20sp"
+                            pos_hint: {"center_y": .5}
+                            size_hint_x: None
+                            width: "150dp"  # Wider fixed width
+                            height: "36dp"  # Fixed height
+                            halign: "left"
+                            valign: "middle"
+                            markup: False  # No markup
+                            shorten: False  # No shortening
+                            max_lines: 1  # Force single line
+
+                # Main Content with scrolling
+                ScrollView:
+                    do_scroll_x: False
+                    do_scroll_y: True
+
+                    MDBoxLayout:
+                        orientation: "vertical"
+                        padding: "16dp"
+                        spacing: "20dp"
+                        adaptive_height: True
+
+                        # Welcome message - hacker styled
+                        MDCard:
+                            orientation: "vertical"
+                            padding: "16dp"
+                            spacing: "8dp"
+                            md_bg_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#455A64") or get_color_from_hex("#1A2130")
+                            radius: [4,]  # More angular for hacker aesthetic
+                            elevation: 1
+                            size_hint_y: None
+                            height: "100dp"
+
+                            MDLabel:
+                                text: "Welcome to DataCrypt"
+                                font_style: "H6"
+                                theme_text_color: "Custom"
+                                text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#FFFFFF") or get_color_from_hex("#E0E0E0")
+                                bold: True
+
+                            MDLabel:
+                                text: "Secure your files with military-grade encryption"
+                                theme_text_color: "Custom"
+                                text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#E0F2F1") or get_color_from_hex("#64FFDA")
+                                font_style: "Body2"
+
+                        # Key Input Section - hacker styled
+                        MDCard:
+                            orientation: "vertical"
+                            padding: "20dp"
+                            spacing: "16dp"
+                            md_bg_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#F5F5F5") or get_color_from_hex("#162029")
+                            radius: [4,]  # More angular for hacker aesthetic
+                            elevation: 1
+                            size_hint_y: None
+                            height: "160dp"
+
+                            # Section header with icon
+                            MDBoxLayout:
+                                orientation: "horizontal"
+                                adaptive_height: True
+                                spacing: "12dp"
+
+                                MDIcon:
+                                    icon: "key-variant"
+                                    theme_text_color: "Custom"
+                                    text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#455A64") or get_color_from_hex("#00E676")
+                                    size_hint: None, None
+                                    size: "24dp", "24dp"
+                                    pos_hint: {"center_y": .5}
+
+                                MDLabel:
+                                    text: "Encryption Key"
+                                    font_style: "H6"
+                                    theme_text_color: "Custom"
+                                    text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#000000") or get_color_from_hex("#FFFFFF")
+                                    bold: True
+
+                            # Key input field and generate button
+                            MDBoxLayout:
+                                orientation: "horizontal"
+                                spacing: "12dp"
+
+                                MDTextField:
+                                    id: key_input
+                                    hint_text: "Enter or generate encryption key"
+                                    mode: "fill"
+                                    fill_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#FFFFFF") or get_color_from_hex("#424242")
+                                    text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#000000") or get_color_from_hex("#ffffff")
+                                    hint_text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#000000") or get_color_from_hex("#9e9e9e")
+                                    helper_text: "This key will encrypt/decrypt your files"
+                                    helper_text_mode: "persistent"
+                                    size_hint_x: 0.7
+                                    line_color_normal: app.theme_cls.theme_style == "Light" and get_color_from_hex("#e0e0e0") or get_color_from_hex("#555555")
+
+                                MDFillRoundFlatIconButton:
+                                    text: "Generate"
+                                    icon: "key-plus"
+                                    on_release: app.generate_key()
+                                    size_hint_x: 0.3
+                                    md_bg_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#455A64") or get_color_from_hex("#00E676")
+                                    text_color: "white"
+                                    pos_hint: {"center_y": .5}
+
+                        # File Selection Section - hacker styled
+                        MDCard:
+                            orientation: "vertical"
+                            padding: "20dp"
+                            spacing: "16dp"
+                            md_bg_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#F5F5F5") or get_color_from_hex("#162029")
+                            radius: [4,]  # More angular for hacker aesthetic
+                            elevation: 1
+                            size_hint_y: None
+                            height: "180dp"
+
+                            # Section header with icon
+                            MDBoxLayout:
+                                orientation: "horizontal"
+                                adaptive_height: True
+                                spacing: "12dp"
+
+                                MDIcon:
+                                    icon: "file-document-outline"
+                                    theme_text_color: "Custom"
+                                    text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#F44336") or get_color_from_hex("#FF5252")
+                                    size_hint: None, None
+                                    size: "24dp", "24dp"
+                                    pos_hint: {"center_y": .5}
+
+                                MDLabel:
+                                    text: "Select File"
+                                    font_style: "H6"
+                                    theme_text_color: "Custom"
+                                    text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#000000") or get_color_from_hex("#FFFFFF")
+                                    bold: True
+
+                            # File input field
+                            MDTextField:
+                                id: file_input
+                                hint_text: "Selected file path will appear here"
+                                mode: "fill"
+                                fill_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#FFFFFF") or get_color_from_hex("#424242")
+                                text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#000000") or get_color_from_hex("#ffffff")
+                                hint_text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#000000") or get_color_from_hex("#9e9e9e")
+                                size_hint_y: None
+                                height: "48dp"
+                                line_color_normal: app.theme_cls.theme_style == "Light" and get_color_from_hex("#e0e0e0") or get_color_from_hex("#555555")
+                                readonly: True
+
+                            # Browse buttons
+                            MDBoxLayout:
+                                orientation: "horizontal"
+                                spacing: "12dp"
+                                adaptive_height: True
+
+                                MDFillRoundFlatIconButton:
+                                    text: "Browse Files"
+                                    icon: "folder-open"
+                                    on_release: app.open_file_manager(False)
+                                    size_hint_x: 0.5
+                                    md_bg_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#D32F2F") or get_color_from_hex("#FF5252")
+                                    text_color: "white"
+
+                                MDFillRoundFlatIconButton:
+                                    text: "Encrypted Files"
+                                    icon: "folder-key"
+                                    on_release: app.open_file_manager(True)
+                                    size_hint_x: 0.5
+                                    md_bg_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#5D4037") or get_color_from_hex("#7C4DFF")
+                                    text_color: "white"
+
+                        # Action Buttons
+                        MDBoxLayout:
+                            orientation: "vertical"
+                            spacing: "20dp"
+                            adaptive_height: True
+                            padding: [0, "10dp", 0, "10dp"]
+
+                            # Encrypt button
+                            MDFillRoundFlatIconButton:
+                                text: "ENCRYPT FILE"
+                                icon: "lock"
+                                on_release: app.encrypt_file()
+                                size_hint_x: 1
+                                height: "56dp"
+                                md_bg_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#455A64") or get_color_from_hex("#00E676")
+                                text_color: "white"
+                                font_style: "Button"
+                                font_size: "18sp"
+
+                            # Decrypt button
+                            MDFillRoundFlatIconButton:
+                                text: "DECRYPT FILE"
+                                icon: "lock-open"
+                                on_release: app.decrypt_file()
+                                size_hint_x: 1
+                                height: "56dp"
+                                md_bg_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#607D8B") or get_color_from_hex("#00BCD4")
+                                text_color: "white"
+                                font_style: "Button"
+                                font_size: "18sp"
+
+                        # Footer with security info - hacker styled
+                        MDCard:
+                            orientation: "vertical"
+                            padding: "16dp"
+                            spacing: "8dp"
+                            md_bg_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#5D4037") or get_color_from_hex("#1A2130")
+                            radius: [4,]  # More angular for hacker aesthetic
+                            elevation: 1
+                            size_hint_y: None
+                            height: "80dp"
+
+                            MDBoxLayout:
+                                orientation: "horizontal"
+                                adaptive_height: True
+
+                                MDIcon:
+                                    icon: "shield-key"
+                                    theme_text_color: "Custom"
+                                    text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#FFAB00") or get_color_from_hex("#FFAB00")
+                                    size_hint: None, None
+                                    size: "24dp", "24dp"
+
+                                MDLabel:
+                                    text: "Your files are secured with military-grade AES-256 encryption"
+                                    theme_text_color: "Custom"
+                                    text_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#FFFFFF") or get_color_from_hex("#E0E0E0")
+                                    font_style: "Body2"
+                                    padding_x: "8dp"
+
+    # Navigation Drawer
+    MDNavigationDrawer:
+        id: nav_drawer
+        radius: (0, 16, 16, 0)
+        md_bg_color: app.theme_cls.theme_style == "Light" and get_color_from_hex("#ffffff") or get_color_from_hex("#1e1e1e")
+
+        ContentNavigationDrawer:
